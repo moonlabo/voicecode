@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap'); /*Noto sans serif*/
+
+* {
+    font-family: "Arial";
+}
+body {
+    margin: 0;
+}
+input, textarea {
+    outline: 0;
+}
+
+/* menu */
+#bar {
+    background-color: #4d97ff;
+    height: 50px;
+}
