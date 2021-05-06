@@ -1,5 +1,17 @@
+/* popup API */
+const popup = {
+    open: (content) => {
+        document.getElementById("pop").hidden = false;
+        document.getElementById("popval").innerHTML = content;
+    },
+    close: () => {
+        document.getElementById("pop").hidden = true;
+    }
+}
+
 const variable = {}
 
+//<numfy> function changes string into number.
 function numfy(val) {
     const numval = Number(val)
     if (isNaN(numval)) {return val;} //if string
