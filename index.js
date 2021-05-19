@@ -9,7 +9,16 @@ const popup = {
     }
 }
 
-const variable = {}
+const variable = {
+    list: {},
+    replace: (val) => {
+        if (variable.list.hasOwnProperty(val)) {
+            return variable.list[val];
+        } else {
+            return val;
+        }
+    }
+}
 
 //<numfy> function changes string into number.
 function numfy(val) {
@@ -30,16 +39,15 @@ if (!('webkitSpeechRecognition' in window)) {
         words = code.split(" ");
 
         //변수
-        if (words[0] == "변수") {
-            if (words.length < 4) {
-                return "변수 등록에 알맞지 않은 문법이 사용되었습니다.";
-            } else {
-                const key = String(words.slice(1, words.indexOf("정의")).join(""));
-                const val = numfy(words.slice(words.indexOf("정의")+1, words.length).join(" "));
+        if (words[0] === "변수") {
+            const key = String(words.slice(1, words.indexOf("정의")).join(""));
+            const val = numfy(words.slice(words.indexOf("정의")+1, words.length).join(" "));
 
-                variable[key] = val;
-                return true;
-            }
+            variable.list[key] = val;
+            return true;
+        } else if (`${words[0]} ${words[1]}` === "팝업 열기") {
+            popup.open(variable.replace(words[2]))
+            return true;
         }
     }
 
