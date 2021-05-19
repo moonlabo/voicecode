@@ -22,7 +22,7 @@ function numfy(val) {
 if (!('webkitSpeechRecognition' in window)) {
     alert("VoiceCode is only supported in CHrome for Desktop and Android only.")
 } else {
-    const recognition = new window.webkitSpeechRecognition;
+    const recognition = new window.webkitSpeechRecognition();
 
     const status = document.getElementById("status");
 
@@ -47,18 +47,24 @@ if (!('webkitSpeechRecognition' in window)) {
     document.getElementById("start").addEventListener("click", () => {
         status.innerText = "Listening...";
         recognition.start()
+
+        document.getElementById("start").hidden = true;
+        document.getElementById("stop").hidden = false;
     })
 
     // Stop btn click event
     document.getElementById("stop").addEventListener("click", () => {
         status.innerText = "Not Listening...";
-        recognition.stop()
+        recognition.stop();
+
+        document.getElementById("start").hidden = false;
+        document.getElementById("stop").hidden = true;
     });
 
     // Result event
     recognition.addEventListener("result", (event) => {
         const { results, resultIndex } = event;
-        const { transcript, confidence } = results[resultIndex][0];
+        const { transcript } = results[resultIndex][0];
 
         console.log(syntax(transcript));
     });
