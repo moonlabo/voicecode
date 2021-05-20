@@ -12,11 +12,10 @@ const popup = {
 const variable = {
     list: {},
     replace: (val) => {
-        if (variable.list.hasOwnProperty(val)) {
-            return variable.list[val];
-        } else {
-            return val;
+        for (let key in variable.list) {
+            val = val.replaceAll(variable.list[key])
         }
+        return val;
     }
 }
 
@@ -46,7 +45,7 @@ if (!('webkitSpeechRecognition' in window)) {
             variable.list[key] = val;
             return true;
         } else if (`${words[0]} ${words[1]}` === "팝업 열기") {
-            popup.open(variable.replace(words[2]))
+            popup.open(variable.replace(words.slice(2, words.length).join(" ")));
             return true;
         }
     }
